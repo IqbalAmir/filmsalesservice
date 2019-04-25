@@ -39,26 +39,7 @@
     <br>
 
 
-    <br>
 
-    <label for="street"><br>Street</br></label>
-    <input type="text" placeholder="" name="street" >
-
-
-
-    <br>
-
-    <label for="city"><br>City</br></label>
-    <input type="text" placeholder="" name="city" >
-
-
-
-    <br>
-
-    <label for="postcode"><br>Postcode</br></label>
-    <input type="text" placeholder="" name="postcode"  >
-
-    <br>
         <br>
         <br>
 

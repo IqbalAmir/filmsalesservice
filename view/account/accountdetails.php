@@ -28,6 +28,8 @@
             <th>PostCode</th>
         </tr>
 
+        <?php echo getCustomerDetails(); ?>
+
 
 
 

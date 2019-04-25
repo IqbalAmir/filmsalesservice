@@ -15,10 +15,11 @@ function getAllFilms()
 function getFilmDetails($filmId)
 {
     $conn = new PDO('mysql:host=localhost;dbname=filmsalesservice', 'u1751546', '03jan98');
-    $stmt = $conn->prepare("SELECT fss_film.filmtitle AS title, fss_film.filmdescription AS description, fss_film.ratid AS rating, fss_filmpurchase.price AS price
-	                        FROM fss_film
-			                    INNER JOIN fss_filmpurchase ON fss_filmpurchase.filmid=fss_film.filmid
-												  WHERE fss_film.filmid = :id");
+    $stmt = $conn->prepare("SELECT fss_film.filmtitle AS title, fss_film.filmdescription AS description, 
+                                     fss_film.ratid AS rating, fss_filmpurchase.price AS price
+	                                 FROM fss_film
+			                         INNER JOIN fss_filmpurchase ON fss_filmpurchase.filmid=fss_film.filmid
+									  WHERE fss_film.filmid = :id");
     $stmt->bindValue(':id', $filmId);
     $stmt->execute();
     $film = $stmt->fetch();
@@ -51,19 +52,26 @@ function insertInfo($name, $phone, $email, $street, $city, $postcode, $password)
 
 }
 
-function updateDetails($name, $phone, $email, $street, $city, $postcode, $password){
+function updateDetails($name, $phone, $email){
     $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
 
     $person = "UPDATE fss_person SET personname = '$name', personphone ='$phone', personemail = '$email' WHERE fss_person.personemail = \"{$_SESSION['email']}\"";
+
+    if(mysqli_query($conn,$person))
+        echo "Details Updated";
+    else
+        echo "Not Updated";
+
+}
+
+
+function updateAddress($street,$city,$postcode){
+    $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
 
     $address ="UPDATE fss_address SET addstreet = '$street', addcity ='$city', addpostcode = '$postcode' 
     WHERE fss_address.addid = (SELECT addid FROM fss_customeraddress
     JOIN fss_person ON fss_customeraddress.custid = fss_person.personid
     WHERE fss_person.personemail = \"{$_SESSION['email']}\")";
-    if(mysqli_query($conn,$person))
-       echo "Details Updated";
-    else
-        echo "Not Updated";
 
     if(mysqli_query($conn,$address))
         echo "Details Updated";

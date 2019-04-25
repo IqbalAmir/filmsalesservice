@@ -9,7 +9,8 @@
 
  <div style="text-align: center"> <a href="../controller/accountdetails.php"> <button class="button">Account Details</button> </a>
   <a href="../controller/orders.php"> <button1 class="button1">Previous Orders</button1> </a>
-     <a href="../controller/updatedetails.php"> <button2 class="button2">Update Details</button2> </a>
+     <a href="../controller/updatedetails.php"> <button2 class="button2">Update Person Details</button2> </a>
+     <a href="../controller/address.php"> <button2 class="button2">Update Delivery Address </button2> </a>
 </div>
 
 </body>
