@@ -4,6 +4,7 @@
 
          session_start();
 
+
          if(($_SESSION['LoggedIn'])== true){
 
              echo "
@@ -14,6 +15,7 @@
              <li class=\"browse\"><a href=\"../controller/browse.php\">Browse</a></li>
          <li class=\"browse\"><a href=\"../controller/account.php\">Account</a></li>
          <li style=\"float:right\" class=\"browse\"><a href=\"../controller/login.php\">Log Out</a></li>
+         
          
          
         

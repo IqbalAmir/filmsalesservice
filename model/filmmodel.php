@@ -35,7 +35,6 @@ function insertInfo($name, $phone, $email, $street, $city, $postcode, $password)
     $person = "INSERT INTO fss_person (personname, personphone, personemail) VALUES ('$name', '$phone', '$email')";
 
     $address = "INSERT INTO fss_address (addstreet, addcity, addpostcode) VALUES ('$street', '$city', '$postcode')";
-
     mysqli_query($conn, $person);
     $getPersonID = mysqli_insert_id($conn);
 
@@ -52,12 +51,13 @@ function insertInfo($name, $phone, $email, $street, $city, $postcode, $password)
 
 }
 
-function updateDetails($name, $phone, $email){
+function updateDetails($name, $phone, $email)
+{
     $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
 
     $person = "UPDATE fss_person SET personname = '$name', personphone ='$phone', personemail = '$email' WHERE fss_person.personemail = \"{$_SESSION['email']}\"";
 
-    if(mysqli_query($conn,$person))
+    if (mysqli_query($conn, $person))
         echo "Details Updated";
     else
         echo "Not Updated";
@@ -65,15 +65,16 @@ function updateDetails($name, $phone, $email){
 }
 
 
-function updateAddress($street,$city,$postcode){
+function updateAddress($street, $city, $postcode)
+{
     $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
 
-    $address ="UPDATE fss_address SET addstreet = '$street', addcity ='$city', addpostcode = '$postcode' 
+    $address = "UPDATE fss_address SET addstreet = '$street', addcity ='$city', addpostcode = '$postcode' 
     WHERE fss_address.addid = (SELECT addid FROM fss_customeraddress
     JOIN fss_person ON fss_customeraddress.custid = fss_person.personid
     WHERE fss_person.personemail = \"{$_SESSION['email']}\")";
 
-    if(mysqli_query($conn,$address))
+    if (mysqli_query($conn, $address))
         echo "Details Updated";
     else
         echo "Not Updated";
@@ -87,7 +88,7 @@ function checkLogin($email, $password)
     $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
     $login = "SELECT personemail, custpassword FROM fss_person JOIN fss_customer
               ON fss_customer.custid = fss_person.personid
-                WHERE fss_person.personemail='$email' AND fss_customer.custpassword = '$password'";
+              WHERE fss_person.personemail='$email' AND fss_customer.custpassword = '$password'";
 
     $result = mysqli_query($conn, $login);
     if (mysqli_num_rows($result) > 0) {
@@ -95,7 +96,7 @@ function checkLogin($email, $password)
         header('location: ../controller/browse.php');
 
     } else {
-        echo 'Password or Username is Incorrect';
+        echo 'Password or Email Address Does Not Match Our Records';
     }
 
 
@@ -166,7 +167,7 @@ function getCustomerDetails()
                      WHERE fss_Person.personemail=\"{$_SESSION['email']}\"";
 
     $detailResults = mysqli_query($conn, $detailsQuery);
-    while ($rows = mysqli_fetch_array($detailResults)){
+    while ($rows = mysqli_fetch_array($detailResults)) {
 
         echo "<tr>";
         echo "<td>" . $rows['Name'] . "</td>";
@@ -178,7 +179,22 @@ function getCustomerDetails()
         echo "</tr>";
 
     }
+}
 
+
+    function resetPassword($password)
+    {
+        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+
+        $password = "UPDATE fss_customer SET custpassword = '$password'
+    WHERE fss_customer.custid = (SELECT custid FROM fss_customer
+    JOIN fss_person ON fss_customer.custid = fss_person.personid
+    WHERE fss_person.personemail =\"{$_SESSION['email']}\"";
+
+        if (mysqli_query($conn, $password))
+            echo "Details Updated";
+        else
+            echo "Not Updated";
 
 
 }

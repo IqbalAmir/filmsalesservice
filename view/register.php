@@ -1,3 +1,4 @@
+
 <head>
 <link rel="stylesheet" type="text/css" href="../css/views.css"/>
 
@@ -12,24 +13,25 @@
     <hr>
 
     <label for="name"><br>Name</br></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
+    <input type="text" placeholder="Enter Name" name="name" required >
+
 <br>
 
 <label for="phone"><br>Phone</br></label>
-<input type="text" placeholder="Enter Contact Number" name="phone" required>
+<input type="text" placeholder="Enter Contact Number" name="phone" required >
 
 <br>
 
     <label for="email"><br>Email</br></label>
-    <input type="text" placeholder="Enter Email" name="email" >
+    <input type="email" placeholder="Enter Email" name="email" required>
 <br>
 
     <label for="psw"><br>Password</br></label>
-    <input type="text" placeholder="Enter Password" name="psw" required>
+    <input type="text" placeholder="Enter Password" name="psw" required >
 <br>
 
     <label for="pswrepeat"><br>Repeat Password</br></label>
-    <input type="text" placeholder="Repeat Password" name="pswrepeat" required>
+    <input type="text" placeholder="Repeat Password" name="pswrepeat" required >
 
 
 <br>
@@ -42,18 +44,18 @@
 <br>
 
     <label for="city"><br>City</br></label>
-    <input type="text" placeholder="Add City" name="city" required>
+    <input type="text" placeholder="Add City" name="city" >
 
 
 
 <br>
 
     <label for="postcode"><br>Postcode</br></label>
-    <input type="text" placeholder="Add Postcode" name="postcode" required>
+    <input type="text" placeholder="Add Postcode" name="postcode" required >
 
 <br>
 <br>
-    <button type="submit" name="register-submit">Register</button>
+    <button class="button3" type="submit" name="register-submit">Register</button>
   </div>
 
 

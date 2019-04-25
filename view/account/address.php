@@ -9,7 +9,7 @@
 
 
     <div style="text-align: center">
-        <h2>Update Your Details</h2>
+        <h2>Update Your Delivery Address</h2>
     </div>
 </head>
 <body>
@@ -43,7 +43,7 @@
             <br>
             <br>
 
-            <button type="submit" name="update-address">Update</button>
+            <button class="button2" type="submit" name="update-address">Update</button>
 
 </div>
 
