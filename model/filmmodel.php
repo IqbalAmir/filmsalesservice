@@ -15,7 +15,7 @@ function getAllFilms()
 function getFilmDetails($filmId)
 {
     $conn = new PDO('mysql:host=localhost;dbname=filmsalesservice', 'u1751546', '03jan98');
-    $stmt = $conn->prepare("SELECT fss_film.filmtitle AS title, fss_film.filmdescription AS description, 
+    $stmt = $conn->prepare("SELECT fss_film.filmtitle AS title, fss_film.filmid AS id, fss_film.filmdescription AS description, 
                                      fss_film.ratid AS rating, fss_filmpurchase.price AS price
 	                                 FROM fss_film
 			                         INNER JOIN fss_filmpurchase ON fss_filmpurchase.filmid=fss_film.filmid
@@ -58,7 +58,7 @@ function updateDetails($name, $phone, $email)
     $person = "UPDATE fss_person SET personname = '$name', personphone ='$phone', personemail = '$email' WHERE fss_person.personemail = \"{$_SESSION['email']}\"";
 
     if (mysqli_query($conn, $person))
-        echo "Details Updated";
+        echo "Your Personal Details Have Been Reset";
     else
         echo "Not Updated";
 
@@ -75,7 +75,7 @@ function updateAddress($street, $city, $postcode)
     WHERE fss_person.personemail = \"{$_SESSION['email']}\")";
 
     if (mysqli_query($conn, $address))
-        echo "Details Updated";
+        echo "Your Delivery Address Has Been Updated";
     else
         echo "Not Updated";
 
@@ -102,7 +102,7 @@ function checkLogin($email, $password)
 
 }
 
-function getCustomerName()
+function getcustomerName()
 {
     if ($_SESSION['LoggedIn'] == false) {
         return "";
@@ -119,24 +119,147 @@ function getCustomerName()
 
 }
 
+function getcustomerPhone()
+{
 
-function getPreviousOrders()
+    if ($_SESSION['LoggedIn'] == false) {
+        return "";
+    } else {
+        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+        $detailQuery = "SELECT personphone FROM fss_person WHERE fss_person.personemail = \"{$_SESSION['email']}\"";
+        $result = mysqli_query($conn, $detailQuery);
+        $row = $result->fetch_assoc();
+        return $row['personphone'];
+
+
+    }
+
+}
+
+function getcustomerEmail()
+{
+
+    if ($_SESSION['LoggedIn'] == false) {
+        return "";
+    } else {
+        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+        $detailQuery = "SELECT personemail FROM fss_person WHERE fss_person.personemail = \"{$_SESSION['email']}\"";
+        $result = mysqli_query($conn, $detailQuery);
+        $row = $result->fetch_assoc();
+        return $row['personemail'];
+
+
+    }
+}
+
+function getcustomerStreet()
+{
+    if ($_SESSION['LoggedIn'] == false) {
+        return "";
+    } else {
+        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+        $detailQuery = "SELECT
+                     fss_address.addstreet AS street
+                     FROM fss_person
+                     JOIN fss_customer ON fss_customer.custid = fss_person.personid
+                     JOIN fss_customeraddress ON fss_person.personid = fss_customeraddress.custid
+                     JOIN fss_address ON fss_customeraddress.addid = fss_address.addid
+                     WHERE fss_Person.personemail=\"{$_SESSION['email']}\"";
+        $result = mysqli_query($conn, $detailQuery);
+        $row = $result->fetch_assoc();
+        return $row['street'];
+
+    }
+
+}
+
+function getcustomerCity()
+{
+    if ($_SESSION['LoggedIn'] == false) {
+        return "";
+
+    } else {
+        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+        $detailQuery = "SELECT
+                     fss_address.addcity AS city
+                     FROM fss_person
+                     JOIN fss_customer ON fss_customer.custid = fss_person.personid
+                     JOIN fss_customeraddress ON fss_person.personid = fss_customeraddress.custid
+                     JOIN fss_address ON fss_customeraddress.addid = fss_address.addid
+                     WHERE fss_Person.personemail=\"{$_SESSION['email']}\"";
+        $result = mysqli_query($conn, $detailQuery);
+        $row = $result->fetch_assoc();
+        return $row['city'];
+
+    }
+
+}
+
+function getcustomerPostcode()
+{
+    if ($_SESSION['LoggedIn'] == false) {
+        return "";
+
+    } else {
+        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+        $detailQuery = "SELECT
+                     fss_address.addpostcode AS postcode
+                     FROM fss_person
+                     JOIN fss_customer ON fss_customer.custid = fss_person.personid
+                     JOIN fss_customeraddress ON fss_person.personid = fss_customeraddress.custid
+                     JOIN fss_address ON fss_customeraddress.addid = fss_address.addid
+                     WHERE fss_Person.personemail=\"{$_SESSION['email']}\"";
+        $result = mysqli_query($conn, $detailQuery);
+        $row = $result->fetch_assoc();
+        return $row['postcode'];
+
+    }
+
+}
+
+
+function getPurchasedFilms()
 {
     $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
-    $orderQuery = "SELECT fss_Person.personname, fss_Film.filmtitle, fss_OnlinePayment.payid 
-                  FROM fss_Person  
-                  JOIN fss_OnlinePayment ON fss_Person.personid=fss_OnlinePayment.custid 
-                  JOIN fss_FilmPurchase ON fss_FilmPurchase.payid = fss_OnlinePayment.payid 
-                  JOIN fss_Film ON fss_Film.filmid = fss_FilmPurchase.filmid 
-                  WHERE fss_Person.personemail=\"{$_SESSION['email']}\"";
+    $orderQuery = "SELECT fss_Film.filmtitle, fss_OnlinePayment.payid, fss_filmpurchase.price, fss_payment.paydate
+                   FROM fss_Person  
+                   JOIN fss_OnlinePayment ON fss_Person.personid=fss_OnlinePayment.custid 
+                   JOIN fss_payment ON fss_payment.payid = fss_onlinepayment.payid
+                   JOIN fss_FilmPurchase ON fss_FilmPurchase.payid = fss_OnlinePayment.payid 
+                   JOIN fss_Film ON fss_Film.filmid = fss_FilmPurchase.filmid 
+                   WHERE fss_Person.personemail=\"{$_SESSION['email']}\"";
     $result = mysqli_query($conn, $orderQuery);
 
     while ($rows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         echo "<tr>";
         echo "<td>" . $rows['filmtitle'] . "</td>";
         echo "<td>" . $rows['payid'] . "</td>";
+        echo "<td>" . $rows['price'] . "</td>";
+        echo "<td>" . $rows['paydate'] . "</td>";
         echo "</tr>";
     }
+
+}
+
+function getPreviousOrders(){
+    $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+
+    $orderQuery = "SELECT fss_payment.paydate, fss_OnlinePayment.payid, SUM(fss_filmpurchase.price) AS total
+                   FROM fss_Person  
+                   JOIN fss_OnlinePayment ON fss_Person.personid=fss_OnlinePayment.custid 
+                   JOIN fss_payment ON fss_payment.payid = fss_onlinepayment.payid
+                   JOIN fss_FilmPurchase ON fss_FilmPurchase.payid = fss_OnlinePayment.payid 
+                   JOIN fss_Film ON fss_Film.filmid = fss_FilmPurchase.filmid 
+                   WHERE fss_Person.personemail=\"{$_SESSION['email']}\" GROUP BY fss_payment.payid";
+    $result = mysqli_query($conn, $orderQuery);
+
+    while ($rows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        echo "<tr>";
+        echo "<td>" . $rows['paydate'] . "</td>";
+        echo "<td>" . $rows['total'] . "</td>";
+        echo "</tr>";
+    }
+
 
 }
 
@@ -182,19 +305,18 @@ function getCustomerDetails()
 }
 
 
-    function resetPassword($password)
-    {
-        $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
+function resetPassword($password)
+{
+    $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
 
-        $password = "UPDATE fss_customer SET custpassword = '$password'
-    WHERE fss_customer.custid = (SELECT custid FROM fss_customer
-    JOIN fss_person ON fss_customer.custid = fss_person.personid
-    WHERE fss_person.personemail =\"{$_SESSION['email']}\"";
+    $passwordSql = "UPDATE fss_customer SET fss_customer.custpassword = '$password'
+                     WHERE fss_customer.custid = (SELECT fss_person.personid FROM fss_person
+                     WHERE fss_person.personemail =\"{$_SESSION['email']}\")";
 
-        if (mysqli_query($conn, $password))
-            echo "Details Updated";
-        else
-            echo "Not Updated";
+    if (mysqli_query($conn, $passwordSql))
+        echo "Your Password Has Been Reset";
+    else
+        echo "Not Updated";
 
 
 }

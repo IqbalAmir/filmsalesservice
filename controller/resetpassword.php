@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['reset-password'])) {
 
+        $error ='';
+
 
         if (strlen($_POST['psw']) <= '6') {
             $error = "Password must contain at least 6 characters";
@@ -24,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo $error;
         } else {
             $password = $_POST['psw'];
-        }
 
-        if ($error == null) {
+        }
+        if ($error == NULL) {
             resetPassword($password);
-            header('location: ../controller/accountdetails.php');
             exit();
         }
+
 
 
     }

@@ -23,12 +23,12 @@
 
 
             <label for="psw"><br>Password</br></label>
-            <input type="text" placeholder="Enter Password" name="psw" required >
+            <input type="password" placeholder="Enter Password" name="psw" required >
 
             <br>
 
             <label for="pswrepeat"><br>Repeat Password</br></label>
-            <input type="text" placeholder="Repeat Password" name="pswrepeat" required >
+            <input type="password" placeholder="Repeat Password" name="pswrepeat" required >
 
             <br>
             <br>

@@ -25,17 +25,17 @@
 
 
     <label for="name"><br>Name</br></label>
-    <input type="text" placeholder="" name="name" value="<?php echo getCustomerName(); ?>" >
+    <input type="text" placeholder="" name="name" value="<?php echo getcustomerName(); ?>" >
     <br>
 
 
     <label for="phone"><br>Phone</br></label>
-    <input type="text" placeholder="" name="phone" value="" >
+    <input type="text" placeholder="" name="phone" value="<?php echo getcustomerPhone(); ?>" >
 
     <br>
 
     <label for="email"><br>Email</br></label>
-    <input type="text" placeholder="" name="email" value="" >
+    <input type="text" placeholder="" name="email" value="<?php echo getcustomerEmail(); ?>" >
     <br>
 
 

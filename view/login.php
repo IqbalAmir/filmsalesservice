@@ -9,10 +9,10 @@
 
 
   <div class="container">
-    <label for="email"><b>Email</b></label>
+    <label for="email"></b></label>
     <input type="text" placeholder="Enter Email" name="email" >
 
-    <label for="psw"><b>Password</b></label>
+    <label for="psw"><b></b></label>
     <input type="password" placeholder="Enter Password" name="psw" >
 
       <button class="button3" type="submit" name="login-submit">Login</button>

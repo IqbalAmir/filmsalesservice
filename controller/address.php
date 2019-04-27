@@ -9,6 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['update-address'])) {
 
+        $error='';
+
 
         if (!preg_match("#[0-9]+#", $_POST['street'])) {
             $error = "Please Enter Your Door Number In The Street Field";
@@ -30,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($error == null) {
             updateAddress($street, $city, $postcode);
-            header('location: ../controller/accountdetails.php');
+            header("Location: ../controller/address.php");
             exit();
         }
 

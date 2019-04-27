@@ -9,6 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['update-details'])) {
 
+        $error='';
+
 
         if (!preg_match("/^[a-zA-Z _]*$/", $_POST['name'])) {
             $error = "Name Can Only Contain Letters";
@@ -31,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($error == null) {
             updateDetails($name, $phone, $email);
-            header('location: ../controller/accountdetails.php');
+            header("Location: ../controller/updatedetails.php");
             exit();
         }
     }

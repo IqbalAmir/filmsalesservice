@@ -12,26 +12,29 @@
 </head>
 <body>
 
-<content>
+<div>
+    <h2> You have purchased a total of <?php echo getNumOrders(); ?> films </h2>
 
-    <?php
+    <table style="float: left;">
+        <tr>
+            <th>Film Title</th>
+            <th>Payment ID</th>
+            <th>Price</th>
+            <th>Date Purchased</th>
+            <?php echo getPurchasedFilms(); ?>
+        </tr>
 
+    </table>
 
-    echo "<table>
-<tr>
-<th>Film Title</th>
-<th>Payment ID</th>
-</tr>";
+    <table class="orders">
+        <tr>
+            <th style="background-color: #008CBA">Order Date</th>
+            <th style="background-color: #008CBA">Order Total</th>
+            <?php echo getPreviousOrders(); ?>
+        </tr>
 
-    echo getPreviousOrders();
-    ?>
-
-   <h2> You have purchased a total of <?php echo getNumOrders(); ?> films </h2>
-
-</content>
-
-
-
+    </table>
+</div>
 
 </body>
 </html>

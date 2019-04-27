@@ -6,6 +6,7 @@ require "../view/layout/navigation.php";
 
 $_SESSION['LoggedIn'] = false;
 
+
 if (isset($_POST['login-submit'])) {
 
 

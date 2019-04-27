@@ -20,12 +20,12 @@
 
     <table>
         <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Street</th>
-            <th>City</th>
-            <th>PostCode</th>
+            <th style="background-color: #4CAF50" >Name</th>
+            <th style="background-color: #4CAF50">Phone</th>
+            <th style="background-color: #4CAF50">Email</th>
+            <th style="background-color: #4CAF50">Street</th>
+            <th style="background-color: #4CAF50">City</th>
+            <th style="background-color: #4CAF50">PostCode</th>
         </tr>
 
         <?php echo getCustomerDetails(); ?>
