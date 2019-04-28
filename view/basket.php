@@ -54,11 +54,15 @@
                  echo "<td>".($total)."</td>";
              echo "</tr>";
         echo "</table>";
+
                 echo "<td></td><input type='submit' name='event' value='Proceed To Checkout'></td>";
-
-
-
     ?>
+
+<form action="browse.php." method="POST">
+    <a> <button class = "button" type="submit">Continue Shopping</button></a>
+
+</form>
+
 
 
 

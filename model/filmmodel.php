@@ -1,5 +1,7 @@
 <?php
 
+include_once "../model/dao.php";
+
 
 function getAllFilms()
 {
@@ -41,7 +43,7 @@ function insertInfo($name, $phone, $email, $street, $city, $postcode, $password)
     mysqli_query($conn, $address);
     $getAddressID = mysqli_insert_id($conn);
 
-//    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+//    $password = password_hash($password, PASSWORD_DEFAULT);
     $pws = "INSERT INTO fss_customer (custid, custregdate, custendreg, custpassword) VALUES ('$getPersonID', current_date, '', '$password')";
 
     mysqli_query($conn, $pws);
@@ -91,7 +93,7 @@ function checkLogin($email, $password)
               WHERE fss_person.personemail='$email' AND fss_customer.custpassword = '$password'";
 
     $result = mysqli_query($conn, $login);
-    if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) == 1) {
         $_SESSION['LoggedIn'] = true;
         header('location: ../controller/browse.php');
 
@@ -241,7 +243,8 @@ function getPurchasedFilms()
 
 }
 
-function getPreviousOrders(){
+function getPreviousOrders()
+{
     $conn = mysqli_connect("localhost", "u1751546", "03jan98", "filmsalesservice");
 
     $orderQuery = "SELECT fss_payment.paydate, fss_OnlinePayment.payid, SUM(fss_filmpurchase.price) AS total

@@ -1,7 +1,8 @@
 <?php
 
-
-session_destroy();
-
+session_start();
+if (isset($_SESSION['LoggedIn'])){
+    session_destroy();
+}
 
 header('location: ../controller/login.php');

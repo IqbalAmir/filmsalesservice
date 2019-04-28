@@ -201,7 +201,6 @@ th, td{
 .orders{
   float:right;
   position:relative;
-  left:-50%;
   text-align:left;
 }
 
